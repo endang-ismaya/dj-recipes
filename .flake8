@@ -1,0 +1,16 @@
+[flake8]
+max-line-length = 79
+
+exclude =
+    migrations
+    __pycache__
+    manage.py
+    settings.py
+    env
+    .env
+    output
+    pg_.*py
+
+per-file-ignores =
+    pg_.*.py
+    _prj_foodie/settings.py
