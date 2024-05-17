@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "app__sandbox",
     "app__foodie",
     "app__recipe",
+    "app__comment",
 ]
 
 MIDDLEWARE = [
