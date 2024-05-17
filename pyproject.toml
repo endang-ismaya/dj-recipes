@@ -1,2 +1,7 @@
 [tool.ruff]
 line-length = 79
+
+[tool.djlint]
+exclude = "_prj_foodie/settings.py, .venv"
+indent_size = 2
+indent = 2

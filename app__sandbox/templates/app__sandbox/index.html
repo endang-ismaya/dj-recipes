@@ -1,10 +1,10 @@
-{% extends "app__sandbox/base.html" %}
+{% extends "base.html" %}
 {% block content %}
-    {% if foods %}
-        <ul>
-            {% for food in foods %}<li>{{ food }}</li>{% endfor %}
-        </ul>
-    {% else %}
-        <p>No foods found.</p>
-    {% endif %}
+  {% if foods %}
+    <ul>
+      {% for food in foods %}<li>{{ food }}</li>{% endfor %}
+    </ul>
+  {% else %}
+    <p>No foods found.</p>
+  {% endif %}
 {% endblock content %}
