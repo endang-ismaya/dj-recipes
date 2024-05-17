@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Django Rendered HTML</h1>
-</body>
-</html>
+{% extends "app__sandbox/base.html" %}
+{% block content %}
+    {% if foods %}
+        <ul>
+            {% for food in foods %}<li>{{ food }}</li>{% endfor %}
+        </ul>
+    {% else %}
+        <p>No foods found.</p>
+    {% endif %}
+{% endblock content %}
