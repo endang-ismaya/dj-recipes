@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # internal apps
     "app__sandbox",
     "app__foodie",
+    "app__recipe",
 ]
 
 MIDDLEWARE = [
