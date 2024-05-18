@@ -2,7 +2,11 @@
 {% block content %}
   {% if recipes %}
     <ul>
-      {% for recipe in recipes %}<li>{{ recipe }}</li>{% endfor %}
+      {% for recipe in recipes %}
+        <li>
+          <a href="{% url "app__sandbox_recipe_detail" recipe.id %}">{{ recipe }}</a>
+        </li>
+      {% endfor %}
     </ul>
   {% else %}
     <p>No recipe found.</p>
