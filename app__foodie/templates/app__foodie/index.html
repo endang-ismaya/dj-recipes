@@ -1,4 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Hello from Foodie App</h1>
+  <h3>Categories</h3>
+  <div>
+    {% for cat in categories %}
+      <div>
+        <a href="{% url "app__foodie_categories" cat.id %}">{{ cat }}</a>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock content %}
