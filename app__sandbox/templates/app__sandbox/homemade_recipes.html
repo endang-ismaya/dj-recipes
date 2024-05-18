@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if homemades %}
+    <ul>
+      {% for recipe in homemades %}
+        <li>
+          <a href="{% url "app__sandbox_recipe_detail" recipe.id %}">{{ recipe }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No recipe found.</p>
+  {% endif %}
+{% endblock content %}

@@ -9,4 +9,9 @@ urlpatterns = [
         views.RecipeDetailView.as_view(),
         name="app__sandbox_recipe_detail",
     ),
+    path(
+        "homemades/",
+        views.HomemadeListView.as_view(),
+        name="app__sandbox_homemade",
+    ),
 ]
