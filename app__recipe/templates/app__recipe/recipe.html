@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{ recipe.name }}</h2>
+  <div>
+    <p>{{ recipe.description }}</p>
+    <h3>Ingredients:</h3>
+    <p>{{ recipe.ingredients |linebreaks }}</p>
+    <h3>Directions</h3>
+    <p>{{ recipe.directions |linebreaks }}</p>
+  </div>
+  <div>
+    <p>Category: {{ recipe.category }}</p>
+  </div>
+  <hr>
+  <div>
+    <a href="{% url "app__recipe_index" %}">Back to recipes</a>
+  </div>
+{% endblock content %}
