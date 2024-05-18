@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if foods %}
+  {% if recipes %}
     <ul>
-      {% for food in foods %}<li>{{ food }}</li>{% endfor %}
+      {% for recipe in recipes %}<li>{{ recipe }}</li>{% endfor %}
     </ul>
   {% else %}
-    <p>No foods found.</p>
+    <p>No recipe found.</p>
   {% endif %}
 {% endblock content %}
