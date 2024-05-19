@@ -29,6 +29,11 @@
             <li class="nav-item">
               <a class="nav-link btn btn-outline-success m-2"
                  aria-current="page"
+                 href="{% url "foodie:add_category" %}">Add Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-success m-2"
+                 aria-current="page"
                  href="{% url "recipe:add_recipe" %}">Add Recipe</a>
             </li>
             <li class="nav-item ">
@@ -85,7 +90,7 @@
       </div>
     </nav>
     <!-- End of Navbar -->
-    <main class="container">
+    <main class="container mb-5">
       <div class="pb-2 mb-2 border-bottom">
         {% block page_header %}
         {% endblock page_header %}
@@ -93,7 +98,7 @@
       {% block content %}
       {% endblock content %}
     </main>
-    <footer class="footer mt-auto py-3 bg-light mx-auto">
+    <footer class="footer mt-auto py-3 bg-light mx-auto ">
       <div class="container">
         <span class="text-muted">© 2029 Foodie - All Rights Reserved</span>
       </div>

@@ -12,8 +12,13 @@ urlpatterns = [
         name="add_category",
     ),
     path(
+        "categories/category/<int:category_id>/",
+        views.add_recipe_by_category,
+        name="add_recipe_with_genre",
+    ),
+    path(
         "categories/<int:category_id>/",
         views.recipe_by_category,
-        name="recipe_by_categories",
+        name="recipe_by_category",
     ),
 ]

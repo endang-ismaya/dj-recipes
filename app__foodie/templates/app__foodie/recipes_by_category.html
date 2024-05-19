@@ -1,18 +1,54 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+  <h3>
+    Recipes under <i>{{ category }} </i>
+  </h3>
+{% endblock page_header %}
 {% block content %}
-  <h3>Recipes by {{ category }}</h3>
+  <a href="{% url "foodie:add_recipe_with_genre" category_id=category.id %}">Add Recipe</a>
   <div>
-    {% if recipes %}
-      {% for recipe in recipes %}
-        <div>
-          <a href="{% url "recipe:recipe" recipe.id %}">
-            <h5>{{ recipe.name }}</h5>
-          </a>
-          <p>{{ recipe.description }}</p>
+    {% for recipe in recipes %}
+      <div class="card mb-3 mx-auto" style="max-width: 540px;">
+        <div class="row g-0 ">
+          <div class="col-md-4 d-flex justify-content-center">
+            {% if recipe.image %}
+              <img src="{{ recipe.image.url }}"
+                   alt="{{ recipe.name }}"
+                   class="img-fluid rounded shadow center">
+            {% else %}
+              <img src="https://placehold.co/800?text=placeholder&font=roboto"
+                   alt="{{ recipe.name }}"
+                   class="img-fluid rounded shadow">
+            {% endif %}
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.name }}</h5>
+              <p>Description:</p>
+              <p class="card-text">{{ recipe.description }}</p>
+              <p class="card-text">
+                <small class="text-body-secondary"><i>added: {{ recipe.created_at|date:"M d, Y " }} </i></small>
+              </p>
+            </div>
+            <div class="row align-items-center mt-3 p-3">
+              <div class="col">
+                <small> <a href="{% url "recipe:recipe" recipe.id %}">View recipe details</a> </small>
+              </div>
+              <div class="col-auto">
+                {% if recipe.user.profile.profile_photo %}
+                  <img src="{{ recipe.user.profile.profile_photo.url }}"
+                       alt="Profile photo"
+                       class="rounded-circle"
+                       widht="30"
+                       height="30">
+                {% endif %}
+                <small>Created by: {{ recipe.user.username }}</small>
+              </div>
+            </div>
+          </div>
         </div>
-      {% endfor %}
-    {% else %}
-      <p>No recipe found.</p>
-    {% endif %}
+      </div>
+    {% endfor %}
   </div>
 {% endblock content %}
