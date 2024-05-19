@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "app__recipe",
     "app__comment",
     "app__account",
+    # 3rd party apps
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [

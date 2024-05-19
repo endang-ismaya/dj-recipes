@@ -1,3 +1,4 @@
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,40 +6,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="keywords" content="">
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <title>Foodie</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="{% url "foodie:index" %}">Foodie</a>
-        <a href="{% url "recipe:index" %}">Recipes</a>
-        <a href="{% url "foodie:add_category" %}">Add Category</a>
-        <a href="{% url "recipe:add_recipe" %}">Add Recipe</a>
-      </nav>
-      <div>
-        <a href="{% url "sandbox:index" %}">Sandbox</a>
-        <a href="{% url "sandbox:homemade" %}">Homemade</a>
-        <a href="{% url "sandbox:feedback" %}">Feedback</a>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url "foodie:index" %}">Foodie <i class="fa-solid fa-bowl-food"></i></a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-success m-2"
+                 aria-current="page"
+                 href="{% url "recipe:add_recipe" %}">Add Recipe</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link btn btn-outline-success m-2"
+                 aria-current="page"
+                 href="{% url "recipe:index" %}">All Recipes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-success m-2 "
+                 aria-current="page"
+                 href="{% url "recipe:index" %}">My Cookbook <i class="fa-solid fa-heart"></i></a>
+            </li>
+            <li class="nav-item">
+              <form class="d-flex my-2 my-lg-0 m-2 p-2"
+                    action="{% url "recipe:index" %}"
+                    method="get">
+                {{ search_form.query }}
+                <button class="btn btn-outline-success my-2 my-sm-0 m-1" type="submit">Search</button>
+              </form>
+            </li>
+          </ul>
+          <!-- Right Side Of Navbar -->
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+            <!-- Authentication Links -->
+            {% if user.is_authenticated %}
+              <li class="nav-item d-flex align-items-center">
+                {% if user.profile.profile_photo %}
+                  <img src="{{ user.profile.profile_photo.url }}"
+                       alt="Profile"
+                       style="width: 30px;
+                              height: 30px;
+                              border-radius: 50%;
+                              margin-right: 5px">
+                {% endif %}
+                <span class="nav-text me-2">Welcome, <a href="{% url "accounts:edit_user_profile" %}">{{ user.username }}</a></span>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "accounts:register" %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "accounts:login" %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+          <!-- End of account related links -->
+          {% if user.is_authenticated %}
+            <form action="{% url 'accounts:logout' %}" method='post'>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+            </form>
+          {% endif %}
+        </div>
       </div>
-      {% if user.is_authenticated %}
-        <div>
-          Hello, {{ user.username }}
-          <form action="{% url "accounts:logout" %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-          </form>
-        </div>
-      {% else %}
-        <div>
-          <a href="{% url "accounts:register" %}">Register</a>
-          <a href="{% url "accounts:login" %}">Login</a>
-        </div>
-      {% endif %}
-      <hr>
-    </header>
-    <div class="container">
+    </nav>
+    <!-- End of Navbar -->
+    <main class="container">
+      <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}
+        {% endblock page_header %}
+      </div>
       {% block content %}
       {% endblock content %}
-    </div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light mx-auto">
+      <div class="container">
+        <span class="text-muted">© 2029 Foodie - All Rights Reserved</span>
+      </div>
+    </footer>
   </body>
 </html>
