@@ -9,12 +9,14 @@
   </head>
   <body>
     <header>
-      <div>
+      <nav>
         <a href="{% url "app__foodie_index" %}">Foodie</a>
         <a href="{% url "app__recipe_index" %}">Recipes</a>
         <a href="{% url "app__sandbox_index" %}">Sandbox</a>
         <a href="{% url "app__sandbox_homemade" %}">Homemade</a>
-      </div>
+        <a href="{% url "app__foodie_add_category" %}">Add Category</a>
+      </nav>
+      <hr>
     </header>
     <div class="container">
       {% block content %}
