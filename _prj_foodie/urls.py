@@ -7,4 +7,5 @@ urlpatterns = [
     path("comments/", include("app__comment.urls")),
     path("admin/", admin.site.urls),
     path("sandbox/", include("app__sandbox.urls")),
+    path("accounts/", include("app__account.urls")),
 ]

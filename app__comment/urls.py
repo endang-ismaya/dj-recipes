@@ -2,4 +2,6 @@ from django.urls import path
 
 from app__comment import views
 
-urlpatterns = [path("", views.comments, name="app__comment_comments")]
+app_name = "comment"
+
+urlpatterns = [path("", views.comments, name="comments")]

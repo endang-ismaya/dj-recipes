@@ -5,7 +5,7 @@
     {% if recipes %}
       {% for recipe in recipes %}
         <div>
-          <a href="{% url "app__recipe_recipe" recipe.id %}">
+          <a href="{% url "recipe:recipe" recipe.id %}">
             <h5>{{ recipe.name }}</h5>
           </a>
           <p>{{ recipe.description }}</p>

@@ -2,16 +2,18 @@ from django.urls import path
 
 from app__foodie import views
 
+app_name = "foodie"
+
 urlpatterns = [
-    path("", views.index, name="app__foodie_index"),
+    path("", views.index, name="index"),
     path(
         "categories/add/",
         views.add_category,
-        name="app__foodie_add_category",
+        name="add_category",
     ),
     path(
         "categories/<int:category_id>/",
         views.recipe_by_category,
-        name="app__foodie_categories",
+        name="recipe_by_categories",
     ),
 ]

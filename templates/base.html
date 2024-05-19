@@ -10,16 +10,30 @@
   <body>
     <header>
       <nav>
-        <a href="{% url "app__foodie_index" %}">Foodie</a>
-        <a href="{% url "app__recipe_index" %}">Recipes</a>
-        <a href="{% url "app__foodie_add_category" %}">Add Category</a>
-        <a href="{% url "app__recipe_add_recipe" %}">Add Recipe</a>
-        <div>
-          <a href="{% url "app__sandbox_index" %}">Sandbox</a>
-          <a href="{% url "app__sandbox_homemade" %}">Homemade</a>
-          <a href="{% url "app__sandbox_feedback" %}">Feedback</a>
-        </div>
+        <a href="{% url "foodie:index" %}">Foodie</a>
+        <a href="{% url "recipe:index" %}">Recipes</a>
+        <a href="{% url "foodie:add_category" %}">Add Category</a>
+        <a href="{% url "recipe:add_recipe" %}">Add Recipe</a>
       </nav>
+      <div>
+        <a href="{% url "sandbox:index" %}">Sandbox</a>
+        <a href="{% url "sandbox:homemade" %}">Homemade</a>
+        <a href="{% url "sandbox:feedback" %}">Feedback</a>
+      </div>
+      {% if user.is_authenticated %}
+        <div>
+          Hello, {{ user.username }}
+          <form action="{% url "accounts:logout" %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        </div>
+      {% else %}
+        <div>
+          <a href="{% url "accounts:register" %}">Register</a>
+          <a href="{% url "accounts:login" %}">Login</a>
+        </div>
+      {% endif %}
       <hr>
     </header>
     <div class="container">

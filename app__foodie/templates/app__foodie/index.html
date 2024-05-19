@@ -4,7 +4,7 @@
   <div>
     {% for cat in categories %}
       <div>
-        <a href="{% url "app__foodie_categories" cat.id %}">{{ cat }}</a>
+        <a href="{% url "foodie:recipe_by_categories" cat.id %}">{{ cat }}</a>
       </div>
     {% endfor %}
   </div>
