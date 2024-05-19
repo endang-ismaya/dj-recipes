@@ -14,4 +14,6 @@ urlpatterns = [
         views.HomemadeListView.as_view(),
         name="app__sandbox_homemade",
     ),
+    path("feedback/", views.feedback, name="app__sandbox_feedback"),
+    path("thankyou/", views.thankyou, name="app__sandbox_thankyou"),
 ]

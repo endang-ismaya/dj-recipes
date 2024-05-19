@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import DetailView, ListView
 
 from app__recipe.models import Recipe
+from app__sandbox.forms import FeedbackForm
+from app__sandbox.models import Feedback
 
 
 def index(request):
@@ -36,3 +39,34 @@ class HomemadeListView(View):
         context = {"homemades": homemades}
 
         return render(request, "app__sandbox/homemade_recipes.html", context)
+
+
+def feedback(request):
+    """Feedback View"""
+    if request.method == "POST":
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            # process the form
+            print(form.cleaned_data)
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            feedback = form.cleaned_data["feedback"]
+            satisfaction = form.cleaned_data["satisfaction"]
+            Feedback.objects.create(
+                name=name,
+                email=email,
+                feedback=feedback,
+                satisfaction=satisfaction,
+            )
+            return redirect("app__sandbox_thankyou")
+        else:
+            context = {"form": form}
+            return render(request, "app__sandbox/feedback.html", context)
+    else:
+        form = FeedbackForm()
+        context = {"form": form}
+        return render(request, "app__sandbox/feedback.html", context)
+
+
+def thankyou(request):
+    return HttpResponse("Thank you for your feedback!.")
