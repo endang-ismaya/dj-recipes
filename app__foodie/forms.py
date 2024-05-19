@@ -7,4 +7,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ("name",)
-        labels = {"name": "Category Name"}
+        # labels = {"name": "Category Name"}
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Category Name"})
+        }
