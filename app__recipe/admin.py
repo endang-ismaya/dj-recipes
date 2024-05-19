@@ -11,6 +11,7 @@ class RecipeAdmin(admin.ModelAdmin):
         "ingredients",
         "directions",
         "category",
+        "user",
         "created_at",
         "updated_at",
     )
