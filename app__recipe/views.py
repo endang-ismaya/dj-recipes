@@ -45,8 +45,10 @@ def add_recipe(request):
         form = RecipeForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect("app__recipe_index")
+            new_recipe = form.save(commit=False)
+            new_recipe.user = request.user
+            new_recipe.save()
+            return redirect("recipe:index")
 
     else:
         form = RecipeForm()

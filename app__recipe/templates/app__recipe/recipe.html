@@ -25,7 +25,7 @@
             Directions:
             <p class="card-text">{{ recipe.directions |linebreaks }}</p>
             <p class="card-text">
-              <small class="text-body-secondary"><i>added: {{ recipe.created_at|date:"M d, Y " }} </i></small>
+              <small class="text-body-secondary"><i>added: {{ recipe.created_at|date:"M d, Y " }} | {{ recipe.created_at| timesince }} ago.</i></small>
             </p>
             <p class="card-text">
               <small class="text-body-secondary"><i>posted by: {{ recipe.user.username }} </i></small>
@@ -68,8 +68,7 @@
         {% endif %}
         <div>
           <strong>{{ comment.user.username }}</strong>
-          commented on {{ comment.date_added|date:"F d, Y" }}
-          at {{ comment.date_added|time:"H:i" }}:
+          commented on {{ comment.created_at| timesince }} ago
           <br>
           <p class="fst-italic">{{ comment.text }}</p>
         </div>
