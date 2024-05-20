@@ -36,8 +36,8 @@
                 <small> <a href="{% url "recipe:recipe" recipe.id %}">View recipe details</a> </small>
               </div>
               <div class="col-auto">
-                {% if recipe.user.profile.profile_photo %}
-                  <img src="{{ recipe.user.profile.profile_photo.url }}"
+                {% if recipe.user.profile.photo %}
+                  <img src="{{ recipe.user.profile.photo.url }}"
                        alt="Profile photo"
                        class="rounded-circle"
                        widht="30"

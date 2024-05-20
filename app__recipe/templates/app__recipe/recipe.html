@@ -27,6 +27,9 @@
             <p class="card-text">
               <small class="text-body-secondary"><i>added: {{ recipe.created_at|date:"M d, Y " }} </i></small>
             </p>
+            <p class="card-text">
+              <small class="text-body-secondary"><i>posted by: {{ recipe.user.username }} </i></small>
+            </p>
             <div class="card-text">
               <form action="{% url "recipe:recipe" recipe_id=recipe.id %}" method="post">
                 {% csrf_token %}
@@ -56,8 +59,8 @@
   {% for comment in comments %}
     <div class="border p-3 mb-3 rounded">
       <div class="d-flex align-items-center mb-2">
-        {% if comment.user.profile.profile_photo %}
-          <img src="{{ comment.user.profile.profile_photo.url }}"
+        {% if comment.user.profile.photo %}
+          <img src="{{ comment.user.profile.photo.url }}"
                alt="Profile"
                class="rounded-circle me-2"
                style="width: 40px;

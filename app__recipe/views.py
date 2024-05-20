@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from app__comment.forms import CommentForm
 from app__recipe.forms import RecipeForm
 from app__recipe.models import Recipe
 
@@ -10,9 +11,31 @@ def recipes(request):
     return render(request, "app__recipe/recipes.html", context)
 
 
-def recipe(request, recipe_id):
-    recipe = Recipe.objects.get(id=recipe_id)
-    context = {"recipe": recipe}
+def recipe_detail(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    comments = recipe.comments.all()
+
+    new_comment = None
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.recipe = recipe
+            new_comment.save()
+
+            return redirect(recipe.get_absolute_url())
+
+    else:
+        comment_form = CommentForm()
+
+    context = {
+        "recipe": recipe,
+        "comments": comments,
+        "comment_form": comment_form,
+    }
     return render(request, "app__recipe/recipe.html", context)
 
 
