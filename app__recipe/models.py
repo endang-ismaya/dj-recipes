@@ -16,6 +16,9 @@ class Recipe(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name="recipe"
     )
+    image = models.ImageField(
+        upload_to="recipe_images/", null=True, blank=True
+    )
     # date time creation
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

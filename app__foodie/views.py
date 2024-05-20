@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from app__foodie.forms import CategoryForm
@@ -21,6 +22,7 @@ def recipe_by_category(request, category_id):
     return render(request, "app__foodie/recipes_by_category.html", context)
 
 
+@login_required
 def add_category(request):
     """Adding a category to database"""
     if request.method == "POST":
@@ -40,6 +42,7 @@ def add_category(request):
         return render(request, "app__foodie/add_category.html", context)
 
 
+@login_required
 def add_recipe_by_category(request, category_id=None):
     category = None
     initial_data = {}
@@ -54,7 +57,9 @@ def add_recipe_by_category(request, category_id=None):
             new_recipe = form.save(commit=False)
             new_recipe.user = request.user
             new_recipe.save()
-            return redirect("recipe:index", category_id=new_recipe.category.id)
+            return redirect(
+                "foodie:recipe_by_category", category_id=new_recipe.category.id
+            )
     else:
         form = RecipeForm(initial=initial_data)
 

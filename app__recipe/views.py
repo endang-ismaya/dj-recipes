@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from app__comment.forms import CommentForm
@@ -39,10 +40,14 @@ def recipe_detail(request, recipe_id):
     return render(request, "app__recipe/recipe.html", context)
 
 
+@login_required
 def add_recipe(request):
     """Add recipe"""
     if request.method == "POST":
-        form = RecipeForm(request.POST)
+        form = RecipeForm(
+            request.POST,
+            request.FILES,
+        )
 
         if form.is_valid():
             new_recipe = form.save(commit=False)
