@@ -36,7 +36,7 @@
         </li>
         <li class="nav-item">
           <form class="d-flex my-2 my-lg-0 m-2 p-2"
-                action="{% url "recipe:index" %}"
+                action="{% url "recipe:search_results" %}"
                 method="get">
             {{ search_form.query }}
             <button class="btn btn-outline-success my-2 my-sm-0 m-1" type="submit">Search</button>

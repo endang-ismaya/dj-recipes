@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from app__comment.forms import CommentForm
@@ -60,3 +61,34 @@ def add_recipe(request):
 
     context = {"form": form}
     return render(request, "app__recipe/add_recipe.html", context)
+
+
+def search_results(request):
+    query = request.GET.get("query", "")
+
+    results = (
+        Recipe.objects.filter(
+            Q(name__icontains=query)
+            | Q(description__icontains=query)
+            | Q(ingredients__icontains=query)
+            | Q(directions__icontains=query)
+            | Q(category__name__icontains=query)
+        ).distinct()
+        if query
+        else []
+    )
+    # avoid duplicate results
+    # seen_ids = set()
+    # unique_results = []
+    # for result in results:
+    #     if result.id not in seen_ids:
+    #         unique_results.append(result)
+    #         seen_ids.add(result.id)
+
+    # else:
+    #     unique_results = []
+
+    # results = Recipe.objects.filter(name__icontains=query) if query else []
+
+    context = {"query": query, "results": results}
+    return render(request, "app__recipe/search_result.html", context)
