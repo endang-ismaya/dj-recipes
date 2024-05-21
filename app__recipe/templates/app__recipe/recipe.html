@@ -31,7 +31,8 @@
               <small class="text-body-secondary"><i>posted by: {{ recipe.user.username }} </i></small>
             </p>
             <div class="card-text">
-              <form action="{% url "recipe:recipe" recipe_id=recipe.id %}" method="post">
+              <form action="{% url "recipe:toggle_favorite" recipe_id=recipe.id %}"
+                    method="post">
                 {% csrf_token %}
                 {% if recipe in user.favorite_recipes.all %}
                   <button type="submit" class="btn btn-link p-0 m-0">

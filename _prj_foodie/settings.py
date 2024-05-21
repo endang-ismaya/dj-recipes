@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "app__account",
     # 3rd party apps
     "django_bootstrap5",
+    "fontawesomefree",
 ]
 
 MIDDLEWARE = [

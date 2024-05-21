@@ -19,6 +19,9 @@ class Recipe(models.Model):
     image = models.ImageField(
         upload_to="recipe_images/", null=True, blank=True
     )
+    favorited_by = models.ManyToManyField(
+        User, related_name="favorite_recipes", blank=True
+    )
     # date time creation
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

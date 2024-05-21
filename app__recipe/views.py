@@ -92,3 +92,22 @@ def search_results(request):
 
     context = {"query": query, "results": results}
     return render(request, "app__recipe/search_result.html", context)
+
+
+@login_required
+def toggle_favorite(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    if request.user in recipe.favorited_by.all():
+        recipe.favorited_by.remove(request.user)
+    else:
+        recipe.favorited_by.add(request.user)
+    return redirect("recipe:recipe", recipe_id=recipe_id)
+
+
+@login_required
+def favorite_recipes(request):
+    user = request.user
+    favorites = user.favorite_recipes.all()
+    context = {"recipes": favorites}
+    return render(request, "app__recipe/favorite_recipes.html", context)
