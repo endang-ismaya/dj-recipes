@@ -44,9 +44,9 @@
                   </button>
                 {% endif %}
               </form>
-            <a href="{% url "recipe:recipe" recipe.id %}"><i class="fa fa-trash" aria-hidden="true"></i>
+            <a href="{% url "recipe:delete_recipe" recipe.id %}"><i class="fa fa-trash" aria-hidden="true"></i>
           </a>
-          <a class="p-3" href="{% url "recipe:recipe" recipe.id %}"> <i class="fas fa-edit"></i></a>
+          <a class="p-3" href="{% url "recipe:edit_recipe" recipe.id %}"> <i class="fas fa-edit"></i></a>
         </div>
       </div>
     </div>

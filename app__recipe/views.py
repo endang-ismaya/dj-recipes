@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 
 from app__comment.forms import CommentForm
@@ -111,3 +112,41 @@ def favorite_recipes(request):
     favorites = user.favorite_recipes.all()
     context = {"recipes": favorites}
     return render(request, "app__recipe/favorite_recipes.html", context)
+
+
+@login_required
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    # check if the current user is the owner of the recipe or a superuser
+    if not request.user == recipe.user and not request.user.is_superuser:
+        return HttpResponseForbidden()
+
+    if request.method == "POST":
+        recipe.delete()
+        return redirect("recipe:index")
+
+    context = {"recipe": recipe}
+    return render(
+        request, "app__recipe/recipe_confirmation_delete.html", context
+    )
+
+
+@login_required
+def edit_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    if not request.user == recipe.user and not request.user.is_superuser:
+        return HttpResponse("Not allowed.")
+        # return HttpResponseForbidden()
+
+    if request.method == "POST":
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect("recipe:recipe", recipe_id=recipe.id)
+    else:
+        form = RecipeForm(instance=recipe)
+
+    context = {"form": form, "recipe": recipe}
+    return render(request, "app__recipe/recipe_form.html", context)
